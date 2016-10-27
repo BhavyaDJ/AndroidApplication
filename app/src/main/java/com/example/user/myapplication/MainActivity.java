@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,13 +25,15 @@ public class MainActivity extends AppCompatActivity {
      */
     public void submitOrder(View view) {
         int price = calculatePrice();
+        EditText simpleEditText = (EditText) findViewById(R.id.name_feild);
+        String name = simpleEditText.getText().toString();
         CheckBox chekBox = (CheckBox) findViewById(R.id.whipped_cream_checkbox);
         boolean hasWhippedCream= chekBox.isChecked();
         Log.v("MainActivity","haswhipped" +hasWhippedCream);
         CheckBox chacoCheckbox = (CheckBox) findViewById(R.id.chocolate_checkbox);
         boolean chacolateCheckbox= chacoCheckbox.isChecked();
         Log.v("MainActivity","haswhipped" +chacolateCheckbox);
-        String priceMessage = createOrderSummary(price,hasWhippedCream,chacolateCheckbox);
+        String priceMessage = createOrderSummary(name,price,hasWhippedCream,chacolateCheckbox);
         displayMessage(priceMessage);
     }
 
@@ -52,10 +55,10 @@ public class MainActivity extends AppCompatActivity {
         quantity =quantity-1;
         displayQuantity(quantity);
     }
-    private String createOrderSummary(int price,boolean addWhippedCream,boolean addChocolate){
-        String priceMessage = "Name : Bhavya" ;
+    private String createOrderSummary(String name,int price,boolean addWhippedCream,boolean addChocolate){
+        String priceMessage = "Name : " +name ;
         priceMessage = priceMessage +"\nQuantity :" +quantity;
-        priceMessage = priceMessage +"\nAdding whipped cream : " +addWhippedCream;
+        priceMessage = priceMessage +"\nAdding Whipped cream : " +addWhippedCream;
         priceMessage = priceMessage +"\nAdding Chocolate : " +addChocolate;
         priceMessage = priceMessage + "\nTotal : $" +price;
         priceMessage = priceMessage + "\nThank you!";
