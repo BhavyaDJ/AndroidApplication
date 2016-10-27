@@ -11,6 +11,16 @@
         android:orientation="vertical"
         tools:context="com.example.user.myapplication.MainActivity">
 
+        <EditText
+            android:id="@+id/name_feild"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="8dp"
+            android:inputType="textCapWords"
+            android:hint="Name"/>
+
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
