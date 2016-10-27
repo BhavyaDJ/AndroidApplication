@@ -89,24 +89,24 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/pricetextview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:text="order summary"
-            android:textAllCaps="true" />
+        <!--<TextView-->
+            <!--android:id="@+id/pricetextview"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:padding="16dp"-->
+            <!--android:text="order summary"-->
+            <!--android:textAllCaps="true" />-->
 
-        <TextView
-            android:id="@+id/Order_summary_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
-            android:paddingBottom="10dp"
-            android:text="$0"
-            android:textColor="@android:color/black"
-            android:textSize="16sp" />
+        <!--<TextView-->
+            <!--android:id="@+id/Order_summary_text_view"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="16dp"-->
+            <!--android:layout_marginStart="16dp"-->
+            <!--android:paddingBottom="10dp"-->
+            <!--android:text="$0"-->
+            <!--android:textColor="@android:color/black"-->
+            <!--android:textSize="16sp" />-->
 
         <Button
             android:id="@+id/button"

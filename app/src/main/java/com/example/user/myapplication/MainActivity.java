@@ -1,8 +1,11 @@
 package com.example.user.myapplication;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.icu.text.NumberFormat;
+import android.net.Uri;
 import android.os.Build;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +13,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     int quantity= 2;
@@ -24,27 +28,49 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
-        int price = calculatePrice();
         EditText simpleEditText = (EditText) findViewById(R.id.name_feild);
         String name = simpleEditText.getText().toString();
+
         CheckBox chekBox = (CheckBox) findViewById(R.id.whipped_cream_checkbox);
         boolean hasWhippedCream= chekBox.isChecked();
         Log.v("MainActivity","haswhipped" +hasWhippedCream);
-        CheckBox chacoCheckbox = (CheckBox) findViewById(R.id.chocolate_checkbox);
-        boolean chacolateCheckbox= chacoCheckbox.isChecked();
-        Log.v("MainActivity","haswhipped" +chacolateCheckbox);
-        String priceMessage = createOrderSummary(name,price,hasWhippedCream,chacolateCheckbox);
-        displayMessage(priceMessage);
-    }
 
-    public int calculatePrice(){
-        int price= quantity * 2;
-        return price;
+        CheckBox chacoCheckbox = (CheckBox) findViewById(R.id.chocolate_checkbox);
+        boolean hasChacolate= chacoCheckbox.isChecked();
+        Log.v("MainActivity","haswhipped" +hasChacolate);
+
+        int price = calculatePrice(hasWhippedCream,hasChacolate);
+        String priceMessage = createOrderSummary(name,price,hasWhippedCream,hasChacolate);
+
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:"));
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Order for " +name);
+        intent.putExtra(Intent.EXTRA_TEXT,priceMessage );
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+//        displayMessage(priceMessage);
+        }
+
+
+    public int calculatePrice(boolean addWhippedCream,boolean addChocolate){
+        int baseprice = 5;
+        if (addWhippedCream){
+            baseprice = baseprice +1;
+        }
+        if (addChocolate){
+            baseprice = baseprice +2;
+        }
+        return quantity * baseprice;
     }
     /**
      * This method is called when the plus button is clicked.
      */
     public void increment(View view){
+        if (quantity == 100){
+            Toast.makeText(this,"You cannot have more than 100 Coffees", Toast.LENGTH_SHORT).show();
+            return;
+        }
         quantity =quantity+1;
         displayQuantity(quantity);
     }
@@ -52,6 +78,10 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the minus button is clicked.
      */
     public void decrement(View view){
+        if (quantity == 1){
+            Toast.makeText(this,"Minimum order of Coffees is 1",Toast.LENGTH_SHORT).show();
+            return;
+        }
         quantity =quantity-1;
         displayQuantity(quantity);
     }
@@ -71,17 +101,10 @@ public class MainActivity extends AppCompatActivity {
         TextView quantityTextView = (TextView) findViewById(R.id.textView2);
         quantityTextView.setText("" + quantity);
     }
-    /**
-     * This method displays the price for the given quantity value on the screen.
-     */
-    @TargetApi(Build.VERSION_CODES.N)
-    private  void displayPrice(int number){
-        TextView priceTextview = (TextView) findViewById(R.id.Order_summary_text_view);
-        priceTextview.setText(NumberFormat.getCurrencyInstance().format(number));
-    }
-    private void displayMessage(String message){
-        TextView messagetextView = (TextView) findViewById(R.id.Order_summary_text_view);
-        messagetextView.setText(message);
-    }
+
+//    private void displayMessage(String message){
+//        TextView messagetextView = (TextView) findViewById(R.id.Order_summary_text_view);
+//        messagetextView.setText(message);
+//    }
 
 }
