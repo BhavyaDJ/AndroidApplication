@@ -17,10 +17,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        CheckBox chekBox = (CheckBox) findViewById(R.id.whipped_cream_checkbox);
-        boolean haswipped= chekBox.isChecked();
-        Log.v("MainActivity","haswipped" +haswipped);
-
     }
 
     /**
@@ -28,7 +24,13 @@ public class MainActivity extends AppCompatActivity {
      */
     public void submitOrder(View view) {
         int price = calculatePrice();
-        String priceMessage = createOrderSummary(price);
+        CheckBox chekBox = (CheckBox) findViewById(R.id.whipped_cream_checkbox);
+        boolean hasWhippedCream= chekBox.isChecked();
+        Log.v("MainActivity","haswhipped" +hasWhippedCream);
+        CheckBox chacoCheckbox = (CheckBox) findViewById(R.id.chocolate_checkbox);
+        boolean chacolateCheckbox= chacoCheckbox.isChecked();
+        Log.v("MainActivity","haswhipped" +chacolateCheckbox);
+        String priceMessage = createOrderSummary(price,hasWhippedCream,chacolateCheckbox);
         displayMessage(priceMessage);
     }
 
@@ -50,9 +52,11 @@ public class MainActivity extends AppCompatActivity {
         quantity =quantity-1;
         displayQuantity(quantity);
     }
-    private String createOrderSummary(int price){
+    private String createOrderSummary(int price,boolean addWhippedCream,boolean addChocolate){
         String priceMessage = "Name : Bhavya" ;
         priceMessage = priceMessage +"\nQuantity :" +quantity;
+        priceMessage = priceMessage +"\nAdding whipped cream : " +addWhippedCream;
+        priceMessage = priceMessage +"\nAdding Chocolate : " +addChocolate;
         priceMessage = priceMessage + "\nTotal : $" +price;
         priceMessage = priceMessage + "\nThank you!";
         return priceMessage;
