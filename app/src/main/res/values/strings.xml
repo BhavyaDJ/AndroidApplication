@@ -1,3 +1,18 @@
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">My Application</string>
+    <string name="toppings">Toppings</string>
+    <string name="Whipped_cream">Whipped cream</string>
+    <string name="Chocolate">Chocolate</string>
+    <string name="quantity">quantity</string>
+    <string name="Order">Order</string>
+    <string name="Name">Name</string>
+    <string name="thank_you">Thank you!</string>
+    <string name="order_summary_name">Name:<xliff:g id="name" example="Bhavya">%s</xliff:g>
+</string>
+    <string name="order_summary_cream">addWhippedCream ?<xliff:g id="whippedcream" example="true">%s</xliff:g></string>
+    <string name="order_summary_chocolate">addchocolate ?<xliff:g id="chocolate" example="true">%s</xliff:g></string>
+    <string name="order_summary_price">price :<xliff:g id="price" example="$10">%s</xliff:g></string>
+    <string name="order_summary_quantity">Quantity:<xliff:g id="quantity" example="5">%d</xliff:g></string>
+
+
 </resources>

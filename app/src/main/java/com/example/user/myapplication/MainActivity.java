@@ -6,6 +6,7 @@ import android.icu.text.NumberFormat;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.ContactsContract;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -85,13 +86,14 @@ public class MainActivity extends AppCompatActivity {
         quantity =quantity-1;
         displayQuantity(quantity);
     }
-    private String createOrderSummary(String name,int price,boolean addWhippedCream,boolean addChocolate){
-        String priceMessage = "Name : " +name ;
-        priceMessage = priceMessage +"\nQuantity :" +quantity;
-        priceMessage = priceMessage +"\nAdding Whipped cream : " +addWhippedCream;
-        priceMessage = priceMessage +"\nAdding Chocolate : " +addChocolate;
-        priceMessage = priceMessage + "\nTotal : $" +price;
-        priceMessage = priceMessage + "\nThank you!";
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private String createOrderSummary(String name, int price, boolean addWhippedCream, boolean addChocolate){
+        String priceMessage = getString(R.string.order_summary_name, name) ;
+        priceMessage += "\n" +getString(R.string.order_summary_quantity,quantity);
+        priceMessage += "\n" +getString(R.string.order_summary_cream,addWhippedCream+"");
+        priceMessage += "\n" +getString(R.string.order_summary_chocolate,addChocolate+"");
+        priceMessage += "\n" +getString(R.string.order_summary_price,NumberFormat.getCurrencyInstance().format(price));
+        priceMessage += "\n" +getString(R.string.thank_you);
         return priceMessage;
     }
     /**
